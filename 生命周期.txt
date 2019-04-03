@@ -1,0 +1,69 @@
+   1. 实例化 BeanFactoryPostProcessor 实现类
+
+   2. 执行 postProcessBeanFactory()方法
+
+   3. 实例化 BeanPostProcessor 实现类
+
+   4. 实例化 InstantiationAwareBeanPostProcessor 实现类
+
+   4. 执行 InstantationAwareBeanPostProcessor实现类的  postProcessBeforInstantition()方法
+
+   5. 执行Bean构造器
+
+   6. 执行 InstantationAwareBeanPostProcessor实现类的 postProcessPropertyValues()方法
+
+   7. 为Bean注入属性
+
+   8. 调用BeanNameAware 实现类 的setBeanName()方法
+
+   9. 调用BeanFactory 实现类 的 setBeanFactory()方法
+
+   10. 执行 BeanPostProcessor 实现类的 postProcessBeforInitialization()方法
+
+   11. 调用 InitializingBean实现类 的  afterPropertiesSet() 方法
+
+   12. 调用Bean 的 init-method属性指定的方法
+
+   13. 执行BeanPostProcessor实现类的 postProcessAfterInitialization()方法
+
+   14. 执行正常调用
+
+   15. 调用DisposableBean的 destroy()方法
+
+   16. 调用 Bean 的 destroy-method 属性指定的方法.
+
+
+
+
+
+   --------start---------
+   11:45:29.076 [main] DEBUG org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@7d6f77cc
+   11:45:29.373 [main] DEBUG org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loaded 4 bean definitions from class path resource [bean.xml]
+   11:45:29.420 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'beanFactoryPostProcessor'
+   [MyBeanFactoryPostProcessor] 实例化
+   [MyBeanFactoryPostProcessor] 调用 postProcessBeanFactory()方法
+   11:45:29.435 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'beanPostProcessor'
+   [MyBeanPostProcessor] 构造方法执行
+   11:45:29.435 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'instantiationAwareBeanPostProcessor'
+   [MyInstantiationAwareBeanPostProcessor] 构造方法执行
+   11:45:29.451 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'myTestBean'
+   [MyInstantiationAwareBeanPostProcessor] 调用 postProcessBeforeInstantiation()执行
+   ### 执行[MyTestBean] [构造方法] ###
+   [MyInstantiationAwareBeanPostProcessor] 调用 postProcessAfterInstantiation()执行
+   [MyInstantiationAwareBeanPostProcessor] 调用 postProcessPropertyValues()执行
+   ### 执行[MyTestBean] key属性[setter方法] ###
+   ### 执行[MyTestBean] value属性[setter方法] ###
+   [BeanNameAware] 执行 setBeanName(myTestBean)方法
+   [BeanFactoryAware] 执行 setBeanFactory(org.springframework.beans.factory.support.DefaultListableBeanFactory@57fffcd7: defining beans [beanPostProcessor,beanFactoryPostProcessor,instantiationAwareBeanPostProcessor,myTestBean]; root of factory hierarchy)方法
+   [MyBeanPostProcessor] postProcessBeforeInitialization()执行, 对属性进行更改
+   [InitializingBean] 执行 afterPropertiesSet()方法
+   ### 执行[MyTestBean] init-method属性指定的 MyInitMethod() ###
+   [MyBeanPostProcessor] postProcessAfterInitialization()执行, 对属性进行更改
+   容器初始化成功
+   ### 执行[MyTestBean] [toString()方法] ###
+   MyTestBean[key='key', value='4201']
+   关闭容器
+   --------end---------
+   11:45:29.513 [Thread-0] DEBUG org.springframework.context.support.ClassPathXmlApplicationContext - Closing org.springframework.context.support.ClassPathXmlApplicationContext@7d6f77cc, started on Wed Apr 03 11:45:29 CST 2019
+   [DisposableBean] 执行 destroy()方法
+   ### 执行[MyTestBean] destroy-method属性指定的 MyDestroyMethod() ###

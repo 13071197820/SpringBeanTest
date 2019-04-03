@@ -1,0 +1,14 @@
+分类:
+   1. Bean自身的方法: bean本身调用的方法
+                      init-method属性指定的方法
+					  destroy-method属性指定的方法
+
+   2. Bean级别生命周期接口方法:
+						BeanNameAware
+						BeanFactoryAware
+						InitializingBean
+						DisposableBean
+
+   3. 容器级生命周期接口方法:
+                        InstantiationAwareBeanPostProcessor
+						BeanPostProcessor
